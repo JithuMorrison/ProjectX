@@ -1,0 +1,126 @@
+<div class="container theme-light">
+  <div class="left">
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/019/879/186/large_2x/user-icon-on-transparent-background-free-png.png"
+      alt=""
+      class="user-img"
+    />
+    <span class="username">{{name}}</span>
+    <span class="emotion">{{selectedHero.emotion}}</span><br />
+    <div class="box">
+      <select
+        name="heroes"
+        id="dropdown"
+        [(ngModel)]="selectedHero"
+        class="select-bar"
+      >
+        <option [ngValue]="'Online'" style="text-align: center">
+          Select a val
+        </option>
+        <ng-container *ngFor="let h of heros">
+          <ng-container *ngIf="h.name==currentText">
+            <option [ngValue]="h" style="text-align: center">
+              {{h.emotion}}
+            </option>
+          </ng-container>
+        </ng-container>
+      </select>
+    </div>
+    <div
+      class="card"
+      *ngFor="let n of projects.projects()"
+      [ngStyle]="{
+            'border-left' : '5px solid ' + (n.color === 1 ? 'var(--base)' : n.color === 2 ? 'var(--green)' : n.color === 3 ? 'var(--add)'  : 'var(--text)')
+        }"
+    >
+      <div class="cardbox" (click)="handleClick(n)">
+        <div>
+          <div class="heading">{{n.name}}</div>
+          <div>{{n.description}}</div>
+        </div>
+        <div>
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/033/265/331/original/incorrect-red-mark-icon-yes-or-no-approved-declined-right-wrong-png.png"
+            alt=""
+            style="
+              width: 40px;
+              height: 40px;
+              margin-left: 10px;
+              margin-top: 5px;
+            "
+            *ngIf="n.status=='Pending'"
+          />
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/024/758/787/original/tick-tick-check-mark-tick-sign-icon-transparent-background-free-png.png"
+            alt=""
+            class="cardimg"
+            *ngIf="n.status=='Completed'"
+          />
+
+          <img
+            src="https://www.freeiconspng.com/uploads/blue-delete-button-png-29.png"
+            alt=""
+            (click)="handleDelete(n.id)"
+            style="height: 40px; width: 50px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mid">
+    <div class="welcome-user">Hello, <span>{{name}}</span></div>
+    <div style="display: flex">
+      <div class="card1">
+        <div style="display: flex; justify-content: center">
+          <div
+            class="heading"
+            style="
+              text-align: center;
+              font-size: x-large;
+              font-weight: 700;
+              margin-bottom: 15px;
+            "
+          >
+            Task Data
+          </div>
+          <img
+            src="https://icons.veryicon.com/png/o/miscellaneous/wasteapp/refresh-348.png"
+            style="
+              position: absolute;
+              left: 54%;
+              top: 14%;
+              width: 40px;
+              height: 40px;
+            "
+            (click)="handleReset()"
+            alt=""
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Task name: </label
+          ><input type="text" [(ngModel)]="currtask().name" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="">Task desc: </label
+          ><input type="text" [(ngModel)]="currtask().description" />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="">Status:</label>
+          <input type="text" [(ngModel)]="currtask().status" /><br /><br />
+        </div>
+        @if(edit()){
+        <button type="submit" (click)="handleUpdateTask()">Edit</button>
+        } @else{
+        <button type="submit" (click)="handleUpdate()">Submit</button>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="classbox">
+      <div>Hello, <span>{{name}}</span></div>
+    </div>
+  </div>
+</div>
