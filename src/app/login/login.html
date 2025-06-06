@@ -1,7 +1,7 @@
 <div class="parent">
   <div class="login-container">
     <h2 style="margin-top: 0px">Hello, User</h2>
-    <h1 style="margin-top: -25px; color: #007bff">Register</h1>
+    <h1 style="margin-top: -25px; color: #007bff">Login</h1>
     <form #loginForm="ngForm" class="login-box" (ngSubmit)="login(loginForm)">
       <div class="form-group">
         <div class="form-grp">
@@ -91,7 +91,7 @@
         </div>
       </div>
       <button type="submit" id="login" [disabled]="loginForm.invalid">
-        Register
+        Login
       </button>
       <a href="">forgot password? click here</a>
       <div class="seperator">
