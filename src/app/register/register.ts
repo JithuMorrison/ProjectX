@@ -15,7 +15,7 @@ export class Register {
 
   http = inject(HttpClient);
 
-  title = 'loginpage';
+  title = 'Registerpage';
   email: string = '';
   uname: string = '';
   fname: string = '';
@@ -40,6 +40,10 @@ export class Register {
     this.router.navigate(['/dash'], { queryParams: { name: this.uname } });
   }
 
+  onEmailChange(value: string) {
+    this.email = value;
+  }
+
   onUsernameChange(value: string) {
     this.uname = value;
   }
@@ -53,8 +57,8 @@ export class Register {
     this.validatePassword(value);
   }
 
-  login(form: any) {
-    if (form.valid) {
+  register(form: any) {
+    if (form.valid && this.uname && this.fname && this.password) {
       if (
         this.passwordErrors.hasLowercase &&
         this.passwordErrors.hasUppercase &&
@@ -62,30 +66,36 @@ export class Register {
         this.passwordErrors.minLength
       ) {
         this.http
-          .post('http://localhost:8080/login', {
-            param: this.uname,
-            password: this.password,
-          })
-          .subscribe(
-            (response) => {
-              console.log('Login successful:', response);
-              if (response == true) {
-                alert('Login successful:');
-                this.gotodash();
-              } else {
-                alert('Login failed: Invalid credentials');
-              }
-            },
-            (error) => {
-              console.error('Login failed:', error);
-              alert('Login failed. Please try again.');
+          .get<boolean>('http://localhost:8080/getUser?email=' + this.email)
+          .subscribe((response: any) => {
+            if (response) {
+              alert('User already exists with this email');
+            } else {
+              this.http
+                .post('http://localhost:8080/register', {
+                  email: this.email,
+                  username: this.uname,
+                  fname: this.fname,
+                  password: this.password,
+                })
+                .subscribe(
+                  (response) => {
+                    console.log('Registration successful:', response);
+                    alert('Registration successful');
+                    this.gotodash();
+                  },
+                  (error) => {
+                    console.error('Registration failed:', error);
+                    alert('Registration failed');
+                  }
+                );
             }
-          );
+          });
       } else {
         alert('Password does not meet the requirements');
       }
     } else {
-      alert('Form is invalid');
+      alert('Please fill in all fields');
     }
   }
 }

@@ -2,7 +2,11 @@
   <div class="login-container">
     <h2 style="margin-top: 0px">Hello, User</h2>
     <h1 style="margin-top: -25px; color: #007bff">Register</h1>
-    <form #loginForm="ngForm" class="login-box" (ngSubmit)="login(loginForm)">
+    <form
+      #registerForm="ngForm"
+      class="login-box"
+      (ngSubmit)="register(registerForm)"
+    >
       <div class="form-group">
         <div class="form-grp">
           <label for="email">Email address: </label>
@@ -15,6 +19,7 @@
             pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
             #email="ngModel"
             placeholder="Enter Mail"
+            (ngModelChange)="onEmailChange(email.value)"
           />
         </div>
         <div
@@ -118,7 +123,7 @@
           >
         </div>
       </div>
-      <button type="submit" id="login" [disabled]="loginForm.invalid">
+      <button type="submit" id="login" [disabled]="registerForm.invalid">
         Register
       </button>
       <div class="seperator">
