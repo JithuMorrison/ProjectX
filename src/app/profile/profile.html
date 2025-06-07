@@ -12,7 +12,7 @@
     />
     <div
       style="
-        margin-top: 95px;
+        margin-top: 90px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -20,7 +20,89 @@
     >
       <div class="name">Jithu Morrison</div>
       <div>Jithu</div>
+      <div>{{relog.userdetails.email()}}</div>
     </div>
+    <form class="form-container" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-column">
+          <label>
+            Email:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.email"
+              name="email"
+            />
+          </label>
+          <label>
+            Username:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.username"
+              name="username"
+            />
+          </label>
+          <label>
+            First Name:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.firstname"
+              name="firstname"
+            />
+          </label>
+          <label>
+            Last Name:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.lastname"
+              name="lastname"
+            />
+          </label>
+        </div>
+
+        <!-- Right column -->
+        <div class="form-column">
+          <label>
+            Phone:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.phoneno"
+              name="phoneno"
+            />
+          </label>
+          <label>
+            Address:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.address"
+              name="address"
+            />
+          </label>
+          <label>
+            Role:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.role"
+              name="role"
+            />
+          </label>
+          <label>
+            Projects:
+            <input
+              [readonly]="!editMode"
+              [(ngModel)]="relog.userdetails.projects"
+              name="projects"
+            />
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="toggleEdit()">
+          {{ editMode ? 'Cancel' : 'Edit Profile' }}
+        </button>
+        <button *ngIf="editMode" type="submit">Save</button>
+      </div>
+    </form>
   </div>
   <div>
     <div class="box1"></div>

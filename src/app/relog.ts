@@ -14,6 +14,10 @@ export class Relog {
     username: signal(''),
     firstname: signal(''),
     lastname: signal(''),
+    phoneno: signal(''),
+    address: signal(''),
+    role: signal(''),
+    projects: signal([]),
   };
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
