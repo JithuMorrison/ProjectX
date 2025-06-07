@@ -13,4 +13,10 @@ export class Maindash {
   openProject(val: string) {
     this.router.navigate(['/' + val], { queryParams: { name: 'Jithu' } });
   }
+
+  openProfile() {
+    this.router.navigate(['/profile'], {
+      queryParams: { email: 'jithus2004@gmail.com' },
+    });
+  }
 }
