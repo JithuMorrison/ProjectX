@@ -7,9 +7,11 @@
     <div class="projects">
       General
       <div class="project" (click)="openProject('projects')">
-        <i class="fa fa-user-circle" style="padding: 0px 10px"></i>Projects
+        <i class="fa fa-file" style="padding: 0px 10px"></i>Projects
       </div>
-      <div class="project">Project 2</div>
+      <div class="project">
+        <i class="fa fa-user-circle" style="padding: 0px 10px"></i>Profile
+      </div>
       <div class="project">Project 3</div>
       <div class="project">Project 4</div>
       <div class="project">Project 5</div>
@@ -28,7 +30,19 @@
         placeholder="Search for Projects, tasks, etc..."
       />
       <div style="display: flex; gap: 25px; align-items: center">
-        <i class="fa fa-plus blue" style="margin-top: 2px"></i>
+        @if (addclick()) {
+        <i
+          class="fa fa-plus blue"
+          style="margin-top: 2px"
+          (click)="toggleClick()"
+        ></i>
+        }@else {
+        <i
+          class="fa fa-times blue"
+          style="margin-top: 2px"
+          (click)="toggleClick()"
+        ></i>
+        }
         <i class="fa fa-bell blue" style="margin-top: 2px"></i>
         <img
           src="https://www.366icons.com/media/01/profile-avatar-account-icon-16699.png"
@@ -54,6 +68,17 @@
         </div>
       </div>
       <div class="right">
+        @if (!addclick()) {
+        <div>Add Project</div>
+        <input type="text" name="" id="" [(ngModel)]="relog.currProject.name" />
+        <input
+          type="text"
+          name=""
+          id=""
+          [(ngModel)]="relog.currProject.description"
+        />
+        <button (click)="addProject()">Add</button>
+        }
         <div class="right-inner">
           <div class="right-inner-top">
             <span class="right-inner-top-text"

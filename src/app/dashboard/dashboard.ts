@@ -68,14 +68,18 @@ export class Dashboard {
       color: Math.floor(Math.random() * 4) + 1,
     });
     this.projects.projects.update((val) => [...val, this.currtask()]);
-    this.http.post('http://localhost:8080/addTask', this.currtask()).subscribe(
-      (response) => {
-        alert('Data posted successfully:');
-      },
-      (error) => {
-        alert('Error posting data:');
-      }
-    );
+    this.http
+      .post('http://localhost:8080/addTask', this.currtask(), {
+        responseType: 'text',
+      })
+      .subscribe(
+        (response) => {
+          alert('Data posted successfully:');
+        },
+        (error) => {
+          alert('Error posting data:');
+        }
+      );
     this.currtask.set({
       id: '',
       name: '',

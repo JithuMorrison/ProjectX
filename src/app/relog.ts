@@ -17,7 +17,17 @@ export class Relog {
     phoneno: signal(''),
     address: signal(''),
     role: signal(''),
-    projects: signal([]),
+    projects: signal<string[]>([]),
+  };
+
+  projects = signal([]);
+
+  currProject = {
+    id: signal(''),
+    name: signal(''),
+    description: signal(''),
+    status: signal('Started'),
+    tasks: signal([]),
   };
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
@@ -27,6 +37,7 @@ export class Relog {
       this.loadFromStorage();
       effect(() => {
         const data = {
+          id: this.userdetails.id(),
           email: this.userdetails.email(),
           username: this.userdetails.username(),
           firstname: this.userdetails.firstname(),
@@ -42,6 +53,7 @@ export class Relog {
     if (stored) {
       try {
         const data = JSON.parse(stored);
+        if (data.id) this.userdetails.id.set(data.id);
         if (data.email) this.userdetails.email.set(data.email);
         if (data.username) this.userdetails.username.set(data.username);
         if (data.firstname) this.userdetails.firstname.set(data.firstname);
