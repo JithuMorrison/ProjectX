@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Relog } from '../relog';
 
 @Component({
   selector: 'app-maindash',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class Maindash {
   constructor(private router: Router) {}
+
+  relog = inject(Relog);
 
   openProject(val: string) {
     this.router.navigate(['/' + val], { queryParams: { name: 'Jithu' } });

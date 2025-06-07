@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Relog } from '../relog';
 
 @Component({
   selector: 'app-register',
@@ -14,9 +15,9 @@ export class Register {
   constructor(private router: Router) {}
 
   http = inject(HttpClient);
+  relog = inject(Relog);
 
   title = 'Registerpage';
-  email: string = '';
   uname: string = '';
   fname: string = '';
   lname: string = '';
@@ -41,7 +42,7 @@ export class Register {
   }
 
   onEmailChange(value: string) {
-    this.email = value;
+    this.relog.userdetails.email.set(value);
   }
 
   onUsernameChange(value: string) {
@@ -66,14 +67,17 @@ export class Register {
         this.passwordErrors.minLength
       ) {
         this.http
-          .get<boolean>('http://localhost:8080/getUser?email=' + this.email)
+          .get<boolean>(
+            'http://localhost:8080/getUser?email=' +
+              this.relog.userdetails.email
+          )
           .subscribe((response: any) => {
             if (response) {
               alert('User already exists with this email');
             } else {
               this.http
                 .post('http://localhost:8080/register', {
-                  email: this.email,
+                  email: this.relog.userdetails.email,
                   username: this.uname,
                   fname: this.fname,
                   password: this.password,

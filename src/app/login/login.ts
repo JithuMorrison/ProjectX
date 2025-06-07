@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Relog } from '../relog';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,9 @@ export class Login {
   constructor(private router: Router) {}
 
   http = inject(HttpClient);
+  relog = inject(Relog);
 
   title = 'loginpage';
-  email: string = '';
   uname: string = '';
   password: string = '';
 
@@ -39,6 +40,10 @@ export class Login {
     this.router.navigate(['/dash'], { queryParams: { name: this.uname } });
   }
 
+  onEmailChange(value: string) {
+    this.relog.userdetails.email.set(value);
+  }
+
   onUsernameChange(value: string) {
     this.uname = value;
   }
@@ -58,7 +63,7 @@ export class Login {
       ) {
         this.http
           .post('http://localhost:8080/login', {
-            param: this.uname,
+            param: this.relog.userdetails.email(),
             password: this.password,
           })
           .subscribe(
