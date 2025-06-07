@@ -62,15 +62,16 @@ export class Login {
         this.passwordErrors.minLength
       ) {
         this.http
-          .post('http://localhost:8080/login', {
+          .post<any>('http://localhost:8080/login', {
             param: this.relog.userdetails.email(),
             password: this.password,
           })
           .subscribe(
             (response) => {
               console.log('Login successful:', response);
-              if (response == true) {
+              if (response['success'] == true) {
                 alert('Login successful:');
+                this.relog.userdetails.id.set(response['id']);
                 this.gotodash();
               } else {
                 alert('Login failed: Invalid credentials');

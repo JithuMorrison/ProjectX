@@ -69,7 +69,7 @@ export class Register {
         this.http
           .get<boolean>(
             'http://localhost:8080/getUser?email=' +
-              this.relog.userdetails.email
+              this.relog.userdetails.email()
           )
           .subscribe((response: any) => {
             if (response) {
@@ -77,7 +77,7 @@ export class Register {
             } else {
               this.http
                 .post('http://localhost:8080/register', {
-                  email: this.relog.userdetails.email,
+                  email: this.relog.userdetails.email(),
                   username: this.uname,
                   fname: this.fname,
                   password: this.password,

@@ -9,6 +9,7 @@ export class Relog {
   private isBrowser: boolean;
 
   public userdetails = {
+    id: signal(''),
     email: signal(''),
     username: signal(''),
     firstname: signal(''),

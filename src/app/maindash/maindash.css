@@ -62,9 +62,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 96%;
+    width: 98%;
     height: 40px;
-    margin: 5px 25px;
+    margin: 5px 10px;
 }
 
 .blue {
@@ -105,4 +105,30 @@
     width: 70%;
     background-color: var(--dw);
     height: 100%;
+}
+
+.threecards {
+    display: flex;
+    justify-content: space-between;
+    height: 20%;
+    padding: 20px;
+    gap: 20px;
+}
+
+.designcard {
+    width: 35%;
+    background-color: var(--dblue);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashtext {
+    font-size: large;
+    font-weight: 600;
+    color: black;
+    margin-top: 20px;
+    margin-left: 20px;
 }
