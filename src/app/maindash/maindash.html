@@ -79,16 +79,12 @@
         />
         <button (click)="addProject()">Add</button>
         }
-        <div class="right-inner">
-          <div class="right-inner-top">
-            <span class="right-inner-top-text"
-              >Welcome, {{relog.userdetails.email()}}</span
-            >
-          </div>
-          <div class="right-inner-bottom">
-            <span class="right-inner-bottom-text"
-              >This is the main dashboard area.</span
-            >
+        <div class="project-list">
+          <div class="project-item" *ngFor="let project of relog.projects()">
+            <div class="project-name" (click)="onProject(project)">
+              {{ project.name }}
+            </div>
+            <div class="project-description">{{ project.description }}</div>
           </div>
         </div>
       </div>

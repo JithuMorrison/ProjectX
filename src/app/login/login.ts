@@ -71,7 +71,10 @@ export class Login {
               console.log('Login successful:', response);
               if (response['success'] == true) {
                 alert('Login successful:');
-                this.relog.userdetails.id.set(response['id']);
+                this.relog.userdetails.id.set(response['user']['id']);
+                this.relog.userdetails.projects.set(
+                  response['user']['projects']
+                );
                 this.gotodash();
               } else {
                 alert('Login failed: Invalid credentials');

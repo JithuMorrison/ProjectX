@@ -20,7 +20,7 @@ export class Relog {
     projects: signal<string[]>([]),
   };
 
-  projects = signal([]);
+  projects = signal<any>([]);
 
   currProject = {
     id: signal(''),
@@ -42,6 +42,7 @@ export class Relog {
           username: this.userdetails.username(),
           firstname: this.userdetails.firstname(),
           lastname: this.userdetails.lastname(),
+          projects: this.userdetails.projects(),
         };
         this.saveToStorage(data);
       });
@@ -58,6 +59,9 @@ export class Relog {
         if (data.username) this.userdetails.username.set(data.username);
         if (data.firstname) this.userdetails.firstname.set(data.firstname);
         if (data.lastname) this.userdetails.lastname.set(data.lastname);
+        if (data.projects) {
+          this.userdetails.projects.set(data.projects);
+        }
       } catch {
         console.error('Failed to parse user details from storage');
       }

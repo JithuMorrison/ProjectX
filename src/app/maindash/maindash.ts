@@ -14,6 +14,17 @@ import { HttpClient } from '@angular/common/http';
 export class Maindash {
   constructor(private router: Router) {}
 
+  ngOnInit() {
+    if (this.relog.projects().length == 0) {
+      const ids = this.relog.userdetails.projects().slice(0, 3).join(',');
+      this.http
+        .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
+        .subscribe((data) => {
+          this.relog.projects.set([...this.relog.projects(), ...data]);
+        });
+    }
+  }
+
   relog = inject(Relog);
   http = inject(HttpClient);
 
@@ -64,5 +75,11 @@ export class Maindash {
           alert('Failed to add project. Please try again.');
         }
       );
+  }
+
+  onProject(project: any) {
+    this.router.navigate(['/projects'], {
+      queryParams: { name: 'Jithu' },
+    });
   }
 }
