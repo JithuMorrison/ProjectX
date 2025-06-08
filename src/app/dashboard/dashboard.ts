@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Projects } from '../projects';
+import { Relog } from '../relog';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class Dashboard {
 
   private http = inject(HttpClient);
   public projects = inject(Projects);
+  relog = inject(Relog);
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -50,41 +52,38 @@ export class Dashboard {
     },
   ]);
 
-  currtask = signal({
-    id: '',
-    name: '',
-    description: '',
-    status: 'Started',
-    color: 1,
-  });
-
   currentText: string = '';
   selectedHero = { name: '', emotion: 'Online' };
   name = '';
 
   handleUpdate() {
-    this.currtask.set({
-      ...this.currtask(),
+    this.relog.currtask.set({
+      ...this.relog.currtask(),
       color: Math.floor(Math.random() * 4) + 1,
     });
-    this.projects.projects.update((val) => [...val, this.currtask()]);
     this.http
-      .post('http://localhost:8080/addTask', this.currtask(), {
+      .post('http://localhost:8080/addTask', this.relog.currtask(), {
         responseType: 'text',
       })
       .subscribe(
         (response) => {
           alert('Data posted successfully:');
+          this.relog.currtask.set({ ...this.relog.currtask(), id: response });
+          this.projects.projects.update((val) => [
+            ...val,
+            this.relog.currtask(),
+          ]);
         },
         (error) => {
           alert('Error posting data:');
         }
       );
-    this.currtask.set({
+    this.relog.currtask.set({
       id: '',
       name: '',
       description: '',
       status: 'Started',
+      projectId: this.relog.currProject.id(),
       color: 1,
     });
   }
@@ -92,8 +91,8 @@ export class Dashboard {
   handleUpdateTask() {
     this.http
       .put(
-        'http://localhost:8080/update/' + this.currtask().id,
-        this.currtask()
+        'http://localhost:8080/update/' + this.relog.currtask().id,
+        this.relog.currtask()
       )
       .subscribe(
         (response) => {
@@ -120,20 +119,21 @@ export class Dashboard {
   }
 
   handleClick(task: any) {
-    this.currtask.set(task);
+    this.relog.currtask.set(task);
     this.edit.set(true);
   }
 
   updateStatus(val: string) {
-    this.currtask.set({ ...this.currtask(), status: val });
+    this.relog.currtask.set({ ...this.relog.currtask(), status: val });
   }
 
   handleReset() {
-    this.currtask.set({
+    this.relog.currtask.set({
       id: '',
       name: '',
       description: '',
       status: 'Started',
+      projectId: this.relog.currProject.id(),
       color: 1,
     });
     this.edit.set(false);

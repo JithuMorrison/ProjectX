@@ -27,15 +27,25 @@ export class Relog {
     name: signal(''),
     description: signal(''),
     status: signal('Started'),
-    tasks: signal([]),
-    members: signal([]),
+    tasks: signal<any[]>([]),
+    members: signal<any[]>([]),
   };
+
+  currtask = signal({
+    id: '',
+    name: '',
+    description: '',
+    status: 'Started',
+    projectId: '',
+    color: 1,
+  });
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (this.isBrowser) {
       this.loadFromStorage();
+
       effect(() => {
         const data = {
           id: this.userdetails.id(),
@@ -44,6 +54,15 @@ export class Relog {
           firstname: this.userdetails.firstname(),
           lastname: this.userdetails.lastname(),
           projects: this.userdetails.projects(),
+          currProject: {
+            id: this.currProject.id(),
+            name: this.currProject.name(),
+            description: this.currProject.description(),
+            status: this.currProject.status(),
+            tasks: this.currProject.tasks(),
+            members: this.currProject.members(),
+          },
+          currtask: this.currtask(),
         };
         this.saveToStorage(data);
       });
@@ -60,8 +79,26 @@ export class Relog {
         if (data.username) this.userdetails.username.set(data.username);
         if (data.firstname) this.userdetails.firstname.set(data.firstname);
         if (data.lastname) this.userdetails.lastname.set(data.lastname);
-        if (data.projects) {
-          this.userdetails.projects.set(data.projects);
+        if (data.projects) this.userdetails.projects.set(data.projects);
+
+        if (data.currProject) {
+          this.currProject.id.set(data.currProject.id || '');
+          this.currProject.name.set(data.currProject.name || '');
+          this.currProject.description.set(data.currProject.description || '');
+          this.currProject.status.set(data.currProject.status || 'Started');
+          this.currProject.tasks.set(data.currProject.tasks || []);
+          this.currProject.members.set(data.currProject.members || []);
+        }
+
+        if (data.currtask) {
+          this.currtask.set({
+            id: data.currtask.id || '',
+            name: data.currtask.name || '',
+            description: data.currtask.description || '',
+            status: data.currtask.status || 'Started',
+            projectId: data.currtask.projectId || '',
+            color: data.currtask.color ?? 1,
+          });
         }
       } catch {
         console.error('Failed to parse user details from storage');
