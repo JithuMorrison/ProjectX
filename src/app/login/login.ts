@@ -75,6 +75,16 @@ export class Login {
                 this.relog.userdetails.projects.set(
                   response['user']['projects']
                 );
+                this.relog.userdetails.username.set(
+                  response['user']['username']
+                );
+                this.relog.userdetails.role.set(response['user']['role']);
+                this.relog.userdetails.phoneno.set(
+                  response['user']['phoneNumber']
+                );
+                this.relog.userdetails.firstname.set(response['user']['fname']);
+                this.relog.userdetails.lastname.set(response['user']['lname']);
+                this.relog.userdetails.address.set(response['user']['address']);
                 this.gotodash();
               } else {
                 alert('Login failed: Invalid credentials');

@@ -53,6 +53,18 @@ export class Register {
     this.fname = value;
   }
 
+  onlastnameChange(value: string) {
+    this.lname = value;
+  }
+
+  onAddressChange(value: string) {
+    this.relog.userdetails.address.set(value);
+  }
+
+  onPhoneChange(value: string) {
+    this.relog.userdetails.phoneno.set(value);
+  }
+
   onPasswordChange(value: string) {
     this.password = value;
     this.validatePassword(value);
@@ -80,6 +92,10 @@ export class Register {
                   email: this.relog.userdetails.email(),
                   username: this.uname,
                   fname: this.fname,
+                  lname: this.lname,
+                  role: 'Offline',
+                  address: this.relog.userdetails.address(),
+                  phoneNumber: this.relog.userdetails.phoneno(),
                   password: this.password,
                 })
                 .subscribe(

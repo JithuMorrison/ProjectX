@@ -91,6 +91,95 @@
       </div>
       <div class="form-group">
         <div class="form-grp">
+          <label for="text">Last Name: </label>
+          <input
+            type="text"
+            id="lname"
+            name="lname"
+            ngModel
+            required
+            #lname="ngModel"
+            placeholder="Enter Last Name"
+            (ngModelChange)="onlastnameChange($event)"
+          />
+        </div>
+        <div
+          *ngIf="lname.invalid && lname.touched"
+          style="
+            color: red;
+            display: block;
+            margin-top: -7px;
+            margin-bottom: -20px;
+          "
+        >
+          <small *ngIf="fname.errors?.['required']">Lastname is required</small>
+        </div>
+      </div>
+      <!-- Address Field -->
+      <div class="form-group">
+        <div class="form-grp">
+          <label for="address">Address: </label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            ngModel
+            required
+            #address="ngModel"
+            placeholder="Enter Address"
+            (ngModelChange)="onAddressChange($event)"
+          />
+        </div>
+        <div
+          *ngIf="address.invalid && address.touched"
+          style="
+            color: red;
+            display: block;
+            margin-top: -7px;
+            margin-bottom: -20px;
+          "
+        >
+          <small *ngIf="address.errors?.['required']"
+            >Address is required</small
+          >
+        </div>
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="form-group">
+        <div class="form-grp">
+          <label for="phone">Phone Number: </label>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            ngModel
+            required
+            pattern="^[0-9]{10}$"
+            #phone="ngModel"
+            placeholder="Enter 10-digit Phone Number"
+            (ngModelChange)="onPhoneChange($event)"
+          />
+        </div>
+        <div
+          *ngIf="phone.invalid && phone.touched"
+          style="
+            color: red;
+            display: block;
+            margin-top: -7px;
+            margin-bottom: -20px;
+          "
+        >
+          <small *ngIf="phone.errors?.['required']"
+            >Phone number is required</small
+          >
+          <small *ngIf="phone.errors?.['pattern']"
+            >Enter a valid 10-digit number</small
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-grp">
           <label for="pass">Password: </label>
           <input
             type="password"
