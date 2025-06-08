@@ -69,15 +69,22 @@
       </div>
       <div class="right">
         @if (!addclick()) {
-        <div>Add Project</div>
-        <input type="text" name="" id="" [(ngModel)]="relog.currProject.name" />
-        <input
-          type="text"
-          name=""
-          id=""
-          [(ngModel)]="relog.currProject.description"
-        />
-        <button (click)="addProject()">Add</button>
+        <div class="add-project">
+          <div>Add Project</div>
+          <input
+            type="text"
+            name=""
+            id=""
+            [(ngModel)]="relog.currProject.name"
+          />
+          <input
+            type="text"
+            name=""
+            id=""
+            [(ngModel)]="relog.currProject.description"
+          />
+          <button (click)="addProject()">Add</button>
+        </div>
         }
         <div class="project-list">
           <div class="project-item" *ngFor="let project of relog.projects()">
@@ -88,6 +95,7 @@
           </div>
         </div>
       </div>
+      <div class="line"></div>
     </div>
   </div>
 </div>
