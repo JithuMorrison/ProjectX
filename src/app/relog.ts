@@ -28,6 +28,7 @@ export class Relog {
     description: signal(''),
     status: signal('Started'),
     tasks: signal([]),
+    members: signal([]),
   };
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {

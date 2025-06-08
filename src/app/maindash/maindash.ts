@@ -14,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
 export class Maindash {
   constructor(private router: Router) {}
 
+  editMode = signal(false);
+
   ngOnInit() {
     if (this.relog.projects().length == 0) {
       const ids = this.relog.userdetails.projects().slice(0, 3).join(',');
@@ -68,6 +70,13 @@ export class Maindash {
             ...projects,
             response,
           ]);
+          this.relog.projects.set([]);
+          const ids = this.relog.userdetails.projects().slice(0, 3).join(',');
+          this.http
+            .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
+            .subscribe((data) => {
+              this.relog.projects.set([...this.relog.projects(), ...data]);
+            });
           this.addclick.set(false);
           alert('Project added successfully!');
         },
@@ -81,5 +90,68 @@ export class Maindash {
     this.router.navigate(['/projects'], {
       queryParams: { name: 'Jithu' },
     });
+  }
+
+  edit(project: any) {
+    this.editMode.set(!this.editMode());
+    if (this.editMode()) {
+      this.relog.currProject.name.set(project.name);
+      this.relog.currProject.description.set(project.description);
+      this.relog.currProject.id.set(project.id);
+      this.relog.currProject.status.set(project.status);
+      this.relog.currProject.tasks.set(project.tasks);
+      this.relog.currProject.members.set(project.members);
+    } else {
+      this.relog.currProject.name.set('');
+      this.relog.currProject.description.set('');
+      this.relog.currProject.id.set('');
+      this.relog.currProject.status.set('');
+      this.relog.currProject.tasks.set([]);
+      this.relog.currProject.members.set([]);
+    }
+  }
+
+  editProject() {
+    this.http
+      .put('http://localhost:8080/updateProject', {
+        name: this.relog.currProject.name(),
+        description: this.relog.currProject.description(),
+        id: this.relog.currProject.id(),
+        status: this.relog.currProject.status(),
+        tasks: this.relog.currProject.tasks(),
+        members: this.relog.currProject.members(),
+      })
+      .subscribe(
+        (response) => {
+          console.log('Project updated successfully:', response);
+          this.editMode.set(false);
+          alert('Project updated successfully!');
+        },
+        (error) => {
+          console.error('Error updating project:', error);
+          alert('Failed to update project. Please try again.');
+        }
+      );
+  }
+
+  deleteProject(project: any) {
+    this.http
+      .delete<any>(`http://localhost:8080/deleteProject/${project.id}`, {
+        responseType: 'text' as 'json',
+      })
+      .subscribe(
+        (response) => {
+          this.relog.projects.update((projects) =>
+            projects.filter((p: any) => p.id !== project.id)
+          );
+          this.relog.userdetails.projects.update((ids: string[]) =>
+            ids.filter((id) => id !== project.id)
+          );
+          alert('Project deleted successfully!');
+        },
+        (error) => {
+          alert('Failed to delete project. Please try again.');
+        }
+      );
   }
 }

@@ -183,6 +183,7 @@ button:hover {
   padding: 12px 16px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   transition: transform 0.1s ease-in-out;
+  display: flex;
 }
 
 .project-item:hover {
@@ -201,6 +202,7 @@ button:hover {
 .project-description {
   font-size: 14px;
   color: #555;
+  max-width: 200px;
 }
 
 .add-project {
@@ -211,7 +213,13 @@ button:hover {
 
 .line {
     background-color: var(--dblue);
-    width: 3.5%;
+    width: 3%;
     margin-left: 5px;
     border-radius: 0px 10px 10px 0px;
+}
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
 }

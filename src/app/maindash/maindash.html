@@ -83,15 +83,25 @@
             id=""
             [(ngModel)]="relog.currProject.description"
           />
+          @if(editMode()){
+          <button (click)="editProject()">Edit</button>
+          }@else{
           <button (click)="addProject()">Add</button>
+          }
         </div>
         }
         <div class="project-list">
           <div class="project-item" *ngFor="let project of relog.projects()">
-            <div class="project-name" (click)="onProject(project)">
-              {{ project.name }}
+            <div style="display: flex; flex-direction: column">
+              <div class="project-name" (click)="onProject(project)">
+                {{ project.name }}
+              </div>
+              <div class="project-description">{{ project.description }}</div>
             </div>
-            <div class="project-description">{{ project.description }}</div>
+            <div class="project-actions">
+              <i class="fa fa-edit blue" (click)="edit(project)"></i>
+              <i class="fa fa-trash red" (click)="deleteProject(project)"></i>
+            </div>
           </div>
         </div>
       </div>
