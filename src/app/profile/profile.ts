@@ -31,11 +31,11 @@ export class Profile {
         {
           email: this.relog.userdetails.email(),
           username: this.relog.userdetails.username(),
-          fname: this.relog.userdetails.lastname(),
-          lname: this.relog.userdetails.firstname(),
+          fname: this.relog.userdetails.firstname(),
+          lname: this.relog.userdetails.lastname(),
           role: 'Offline',
           address: this.relog.userdetails.address(),
-          Phoneno: this.relog.userdetails.phoneno(),
+          phoneno: this.relog.userdetails.phoneno(),
           projects: this.relog.userdetails.projects(),
         },
         { responseType: 'text' }

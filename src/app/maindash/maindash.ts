@@ -77,7 +77,7 @@ export class Maindash {
           this.http
             .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
             .subscribe((data) => {
-              this.relog.projects.set([...this.relog.projects(), ...data]);
+              this.relog.projects.set(data);
             });
           this.addclick.set(false);
           alert('Project added successfully!');

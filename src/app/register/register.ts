@@ -97,8 +97,9 @@ export class Register {
                   lname: this.lname,
                   role: 'Offline',
                   address: this.relog.userdetails.address(),
-                  phoneNumber: this.relog.userdetails.phoneno(),
+                  phoneno: this.relog.userdetails.phoneno(),
                   password: this.password,
+                  projects: [],
                 })
                 .subscribe(
                   (response) => {

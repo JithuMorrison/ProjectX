@@ -32,7 +32,7 @@ export class Dashboard {
         status: item['status'],
         color: Math.floor(Math.random() * 4) + 1,
       }));
-      this.projects.projects.set([...this.projects.projects(), ...transformed]);
+      this.projects.projects.set(transformed);
     });
   }
 
