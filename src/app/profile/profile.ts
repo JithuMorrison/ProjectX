@@ -27,11 +27,21 @@ export class Profile {
   save() {
     this.http
       .put(
-        'http://localhost:3000/updateUser/' + this.relog.userdetails.id(),
-        this.relog.userdetails
+        'http://localhost:8080/updateUser/' + this.relog.userdetails.id(),
+        {
+          email: this.relog.userdetails.email(),
+          username: this.relog.userdetails.username(),
+          fname: this.relog.userdetails.lastname(),
+          lname: this.relog.userdetails.firstname(),
+          role: 'Offline',
+          address: this.relog.userdetails.address(),
+          phoneNumber: this.relog.userdetails.phoneno(),
+          projects: this.relog.userdetails.projects(),
+        },
+        { responseType: 'text' }
       )
       .subscribe((response) => {
-        alert(response);
+        alert('user updated successfully');
       });
     this.toggleEdit();
   }

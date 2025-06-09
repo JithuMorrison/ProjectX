@@ -7,7 +7,7 @@
   <button class="backbtn" (click)="goback()">Back</button>
   <div class="profilebox">
     <img
-      src="https://inspiringtips.com/wp-content/uploads/2018/01/be-a-good-person.jpg"
+      src="https://wallpapers.com/images/hd/cute-fox-pictures-n3g4xazc9g6xc6zx.jpg"
       alt="no image"
       class="profileimg"
     />
@@ -101,7 +101,7 @@
         <button type="button" (click)="toggleEdit()">
           {{ editMode ? 'Cancel' : 'Edit Profile' }}
         </button>
-        <button *ngIf="editMode" type="submit">Save</button>
+        <button *ngIf="editMode" type="submit" (click)="save()">Save</button>
       </div>
     </form>
   </div>

@@ -53,6 +53,9 @@ export class Relog {
           username: this.userdetails.username(),
           firstname: this.userdetails.firstname(),
           lastname: this.userdetails.lastname(),
+          phoneno: this.userdetails.phoneno(),
+          address: this.userdetails.address(),
+          role: this.userdetails.role(),
           projects: this.userdetails.projects(),
           currProject: {
             id: this.currProject.id(),
@@ -79,6 +82,9 @@ export class Relog {
         if (data.username) this.userdetails.username.set(data.username);
         if (data.firstname) this.userdetails.firstname.set(data.firstname);
         if (data.lastname) this.userdetails.lastname.set(data.lastname);
+        if (data.role) this.userdetails.role.set(data.role);
+        if (data.address) this.userdetails.address.set(data.address);
+        if (data.phoneno) this.userdetails.phoneno.set(data.phoneno);
         if (data.projects) this.userdetails.projects.set(data.projects);
 
         if (data.currProject) {
