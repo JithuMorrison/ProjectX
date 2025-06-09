@@ -89,11 +89,13 @@ export class Maindash {
   }
 
   onProject(project: any) {
+    this.relog.currProject.id.set(project.id);
+    this.relog.currProject.name.set(project.name);
+    this.relog.currProject.description.set(project.description);
+    this.relog.currProject.tasks.set(project.tasks);
     this.router.navigate(['/projects'], {
       queryParams: { name: 'Jithu' },
     });
-    this.relog.currProject.id.set(project.id);
-    this.relog.currProject.name.set(project.name());
   }
 
   edit(project: any) {

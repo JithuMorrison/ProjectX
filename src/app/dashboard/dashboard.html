@@ -8,23 +8,7 @@
     <span class="username">{{name}}</span>
     <span class="emotion">{{selectedHero.emotion}}</span><br />
     <div class="box">
-      <select
-        name="heroes"
-        id="dropdown"
-        [(ngModel)]="selectedHero"
-        class="select-bar"
-      >
-        <option [ngValue]="'Online'" style="text-align: center">
-          Select a val
-        </option>
-        <ng-container *ngFor="let h of heros">
-          <ng-container *ngIf="h.name==currentText">
-            <option [ngValue]="h" style="text-align: center">
-              {{h.emotion}}
-            </option>
-          </ng-container>
-        </ng-container>
-      </select>
+      <div>{{relog.currProject.description()}}</div>
     </div>
     <div
       class="card"
@@ -87,7 +71,7 @@
             src="https://icons.veryicon.com/png/o/miscellaneous/wasteapp/refresh-348.png"
             style="
               position: absolute;
-              left: 54%;
+              left: 52.5%;
               top: 14%;
               width: 40px;
               height: 40px;
@@ -122,8 +106,51 @@
     </div>
   </div>
   <div class="right">
-    <div class="classbox">
-      <div>Hello, <span>{{relog.currProject.name()}}</span></div>
+    <div class="project-header">
+      <h2>
+        Hello, <span class="project-name">{{relog.currProject.name()}}</span>
+      </h2>
+      <p class="project-subtitle">Manage your tasks efficiently</p>
+    </div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Search tasks by name or status..."
+        [(ngModel)]="searchTerm"
+        class="search-input"
+      />
+    </div>
+
+    <div class="tasks-container">
+      <h3 class="tasks-title">Your Tasks</h3>
+      <div class="tasks-list">
+        <div *ngFor="let task of filteredTasks" class="task-card">
+          <div class="task-info">
+            <h4 class="task-name">{{ task.name }}</h4>
+            <p class="task-description" *ngIf="task.description">
+              {{ task.description }}
+            </p>
+          </div>
+          <div
+            class="task-status"
+            [ngClass]="{
+            'status-pending': task.status==='Pending', 
+            'status-completed': task.status==='Completed'
+          }"
+          >
+            {{ task.status }}
+          </div>
+        </div>
+        <div *ngIf="filteredTasks.length === 0" class="no-tasks">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png"
+            alt="No tasks"
+            class="no-tasks-icon"
+          />
+          <p>No matching tasks found</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

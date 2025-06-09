@@ -19,13 +19,28 @@ export class Dashboard {
   public projects = inject(Projects);
   relog = inject(Relog);
 
+  searchTerm: string = '';
+
+  get filteredTasks() {
+    if (!this.searchTerm) return this.projects.projects();
+    const term = this.searchTerm.toLowerCase();
+    return this.projects
+      .projects()
+      .filter(
+        (task: any) =>
+          task.name.toLowerCase().includes(term) ||
+          task.status.toLowerCase().includes(term)
+      );
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.name = params['name'];
     });
     this.http
       .get<any[]>(
-        'http://localhost:8080/hello?ids=' + this.relog.currProject.tasks()
+        'http://localhost:8080/hello?ids=' +
+          this.relog.currProject.tasks().join(',')
       )
       .subscribe((data) => {
         console.log(data);
