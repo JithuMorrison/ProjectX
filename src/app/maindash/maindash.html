@@ -30,6 +30,7 @@
         name=""
         id=""
         class="search-bar"
+        [(ngModel)]="searchTerm"
         placeholder="Search for Projects, tasks, etc..."
       />
       <div style="display: flex; gap: 25px; align-items: center">
@@ -59,21 +60,28 @@
       <div class="mid">
         <div class="dashtext">Dashboard</div>
         <div class="threecards">
+          <div class="designcard" style="background-color: rgb(174, 220, 98)">
+            Projects: <span>{{relog.projects()?.length}}</span>
+          </div>
           <div
             class="designcard"
-            style="background-color: rgb(174, 220, 98)"
-          ></div>
-          <div
-            class="designcard"
-            style="background-color: rgb(240, 95, 95)"
-          ></div>
-          <div class="designcard"></div>
+            style="background-color: rgb(240, 95, 95); color: aqua"
+          >
+            Projects:
+            <span style="color: aqua">{{relog.projects()?.length}}</span>
+          </div>
+          <div class="designcard" style="color: antiquewhite">
+            Projects:
+            <span style="color: antiquewhite"
+              >{{relog.projects()?.length}}</span
+            >
+          </div>
         </div>
-        <div style="padding: 0px 20px">
+        <div style="padding: 0px 20px; height: 440px; overflow-y: auto">
           <div>Projects</div>
           <div
             class="project-item"
-            *ngFor="let project of relog.projects()"
+            *ngFor="let project of filteredProj"
             style="margin-top: 10px; justify-content: space-between"
           >
             <div

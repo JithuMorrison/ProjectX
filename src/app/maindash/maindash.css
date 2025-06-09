@@ -138,6 +138,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: x-large;
+    font-weight: 700;
+    color: #494e54;
+}
+
+.designcard span {
+  font-size: larger;
+  color: #558581;
 }
 
 .dashtext {
@@ -236,4 +244,8 @@ button:hover {
     display: flex;
     gap: 10px;
     margin-left: 10px;
+}
+
+div::-webkit-scrollbar {
+  display: none;
 }

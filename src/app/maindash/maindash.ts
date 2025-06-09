@@ -15,6 +15,7 @@ export class Maindash {
   constructor(private router: Router) {}
 
   editMode = signal(false);
+  searchTerm: string = '';
 
   ngOnInit() {
     if (this.relog.projects().length == 0) {
@@ -163,5 +164,17 @@ export class Maindash {
 
   logout() {
     this.router.navigate(['/']);
+  }
+
+  get filteredProj() {
+    if (!this.searchTerm) return this.relog.projects();
+    const term = this.searchTerm.toLowerCase();
+    return this.relog
+      .projects()
+      .filter(
+        (task: any) =>
+          task.name.toLowerCase().includes(term) ||
+          task.status.toLowerCase().includes(term)
+      );
   }
 }
