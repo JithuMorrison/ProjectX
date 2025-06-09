@@ -18,7 +18,7 @@ export class Maindash {
 
   ngOnInit() {
     if (this.relog.projects().length == 0) {
-      const ids = this.relog.userdetails.projects().slice(0, 3).join(',');
+      const ids = this.relog.userdetails.projects().join(',');
       this.http
         .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
         .subscribe((data) => {
@@ -33,12 +33,14 @@ export class Maindash {
   addclick = signal(false);
 
   openProject(val: string) {
-    this.router.navigate(['/' + val], { queryParams: { name: 'Jithu' } });
+    this.router.navigate(['/' + val], {
+      queryParams: { name: this.relog.userdetails.username() },
+    });
   }
 
   openProfile() {
     this.router.navigate(['/profile'], {
-      queryParams: { email: 'jithus2004@gmail.com' },
+      queryParams: { name: this.relog.userdetails.username() },
     });
   }
 
@@ -71,7 +73,7 @@ export class Maindash {
             response,
           ]);
           this.relog.projects.set([]);
-          const ids = this.relog.userdetails.projects().slice(0, 3).join(',');
+          const ids = this.relog.userdetails.projects().join(',');
           this.http
             .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
             .subscribe((data) => {
@@ -154,5 +156,9 @@ export class Maindash {
           alert('Failed to delete project. Please try again.');
         }
       );
+  }
+
+  logout() {
+    this.router.navigate(['/']);
   }
 }

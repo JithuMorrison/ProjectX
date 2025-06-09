@@ -38,7 +38,9 @@ export class Register {
   }
 
   gotodash() {
-    this.router.navigate(['/dash'], { queryParams: { name: this.uname } });
+    this.router.navigate(['/dash'], {
+      queryParams: { name: this.relog.userdetails.username() },
+    });
   }
 
   onEmailChange(value: string) {

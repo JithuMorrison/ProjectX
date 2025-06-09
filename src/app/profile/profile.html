@@ -19,8 +19,10 @@
         align-items: center;
       "
     >
-      <div class="name">Jithu Morrison</div>
-      <div>Jithu</div>
+      <div class="name">
+        {{relog.userdetails.lastname()}} {{relog.userdetails.firstname()}}
+      </div>
+      <div>{{relog.userdetails.username()}}</div>
       <div>{{relog.userdetails.email()}}</div>
     </div>
     <form class="form-container" (ngSubmit)="save()">
@@ -112,4 +114,9 @@
       <div class="box2" style="left: 77%"></div>
     </div>
   </div>
+  <i
+    class="fa fa-trash"
+    style="position: absolute; top: 150px; color: red; left: 800px"
+    (click)="delete()"
+  ></i>
 </div>

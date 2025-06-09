@@ -35,7 +35,7 @@ export class Profile {
           lname: this.relog.userdetails.firstname(),
           role: 'Offline',
           address: this.relog.userdetails.address(),
-          phoneNumber: this.relog.userdetails.phoneno(),
+          Phoneno: this.relog.userdetails.phoneno(),
           projects: this.relog.userdetails.projects(),
         },
         { responseType: 'text' }
@@ -44,6 +44,18 @@ export class Profile {
         alert('user updated successfully');
       });
     this.toggleEdit();
+  }
+
+  delete() {
+    this.http
+      .delete(
+        'http://localhost:8080/deleteUser/' + this.relog.userdetails.id(),
+        { responseType: 'text' as 'json' }
+      )
+      .subscribe((response) => {
+        alert('User Deleted :(');
+        this.router.navigate(['/']);
+      });
   }
 
   goback() {
