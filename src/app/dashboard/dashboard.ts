@@ -23,17 +23,21 @@ export class Dashboard {
     this.route.queryParams.subscribe((params) => {
       this.name = params['name'];
     });
-    this.http.get<any[]>('http://localhost:8080/hello').subscribe((data) => {
-      console.log(data);
-      const transformed = data.map((item) => ({
-        id: item['id'],
-        name: item['name'],
-        description: item['description'],
-        status: item['status'],
-        color: Math.floor(Math.random() * 4) + 1,
-      }));
-      this.projects.projects.set(transformed);
-    });
+    this.http
+      .get<any[]>(
+        'http://localhost:8080/hello?ids=' + this.relog.currProject.tasks()
+      )
+      .subscribe((data) => {
+        console.log(data);
+        const transformed = data.map((item) => ({
+          id: item['id'],
+          name: item['name'],
+          description: item['description'],
+          status: item['status'],
+          color: Math.floor(Math.random() * 4) + 1,
+        }));
+        this.projects.projects.set(transformed);
+      });
   }
 
   heros = [

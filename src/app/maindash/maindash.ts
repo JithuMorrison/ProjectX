@@ -93,6 +93,7 @@ export class Maindash {
       queryParams: { name: 'Jithu' },
     });
     this.relog.currProject.id.set(project.id);
+    this.relog.currProject.name.set(project.name());
   }
 
   edit(project: any) {
