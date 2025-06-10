@@ -371,3 +371,20 @@ button[type=submit]:hover {
   color: #6b7280;
   font-size: 0.9rem;
 }
+
+.backbtn {
+  position: absolute;
+  height: 30px;
+  width: 70px;
+  border: 0px solid;
+  border-radius: 10px;
+  background-color: #00cc88;
+  color: #ffffff;
+  top: 35px;
+  left: 1010px;
+  transition: 0.5s ease;
+}
+
+.backbtn:hover {
+  background-color: #03a771;
+}

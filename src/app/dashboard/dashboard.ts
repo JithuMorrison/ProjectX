@@ -1,7 +1,7 @@
 import { Component, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Projects } from '../projects';
 import { Relog } from '../relog';
@@ -13,7 +13,7 @@ import { Relog } from '../relog';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   private http = inject(HttpClient);
   public projects = inject(Projects);
@@ -156,5 +156,11 @@ export class Dashboard {
       color: 1,
     });
     this.edit.set(false);
+  }
+
+  goback() {
+    this.router.navigate(['/dash'], {
+      queryParams: { name: this.relog.userdetails.username() },
+    });
   }
 }

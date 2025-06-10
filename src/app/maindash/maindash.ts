@@ -95,7 +95,7 @@ export class Maindash {
     this.relog.currProject.description.set(project.description);
     this.relog.currProject.tasks.set(project.tasks);
     this.router.navigate(['/projects'], {
-      queryParams: { name: 'Jithu' },
+      queryParams: { name: this.relog.userdetails.username() },
     });
   }
 
