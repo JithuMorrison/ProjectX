@@ -11,7 +11,7 @@ body{
   --carb: #e5e7eb;
   --base: #2563eb;
   --supp: #eaeff4;
-  --supp1: #e8edf8;
+  --supp1: #ddfdf2;
   --green: #10b981;
   --add: #f59e0b;
 }
@@ -37,39 +37,39 @@ body{
     width: 20%;
     height: 100%;
     border-radius: 10px;
+    box-shadow: 3px 10px 12px rgba(0, 0, 0, 0.1);
+    margin-right: 5px;
+    border: 1px solid #4bfac0;
 }
 
 .user-img{
-    width: 75px;
-    height: 45px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
 }
 
 .username {
-    font-size: x-large;
     font-weight: 600;
-    position: relative;
-    top: -25px;
+    max-width: 10px;
 }
 
 .emotion {
     color: var(--green);
     font-size: large;
     font-weight: 600;
-    background-color: var(--card);
+    background-color: white;
     padding: 5px 15px;
     border-radius: 20px;
-    position: relative;
-    top: -25px;
-    right: -230px;
+    margin-top: 10px;
+    border: 1px solid var(--green);
 }
 
 .box {
-    background-color: var(--bg);
+    background-color: white;
     display: flex;
     justify-content: center;
     padding: 10px 0px;
+    border-top: 4px solid #10b981;
 }
 
 .search-bar {
@@ -103,12 +103,11 @@ body{
 
 .cardbox {
     display: flex;
-    gap: 100px;
+    gap: 50px;
 }
 
-.cardimg {
-    width: 50px;
-    height: 50px;
+.ci {
+    padding: 15px 20px;
 }
 
 .mid {
@@ -224,7 +223,7 @@ button[type=submit]:hover {
   display: flex;
   flex-direction: column;
   padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
 }
 
@@ -336,7 +335,6 @@ button[type=submit]:hover {
   border-radius: 20px;
   font-size: 0.7rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   min-width: 80px;
   text-align: center;

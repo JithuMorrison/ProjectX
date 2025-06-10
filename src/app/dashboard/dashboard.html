@@ -1,12 +1,16 @@
 <div class="container theme-light">
   <div class="left">
-    <img
-      src="https://static.vecteezy.com/system/resources/previews/019/879/186/large_2x/user-icon-on-transparent-background-free-png.png"
-      alt=""
-      class="user-img"
-    />
-    <span class="username">{{name}}</span>
-    <span class="emotion">{{selectedHero.emotion}}</span><br />
+    <div style="display: flex; justify-items: center; align-items: center">
+      <img
+        src="https://www.366icons.com/media/01/profile-avatar-account-icon-16699.png"
+        alt=""
+        class="user-img"
+      />
+      <div style="display: flex; flex-direction: column; margin-top: 25px">
+        <span class="username">{{relog.userdetails.email()}}</span>
+        <span class="emotion">{{relog.currProject.status()}}</span><br />
+      </div>
+    </div>
     <div class="box">
       <div>{{relog.currProject.description()}}</div>
     </div>
@@ -18,41 +22,40 @@
         }"
     >
       <div class="cardbox" (click)="handleClick(n)">
-        <div>
-          <div class="heading">{{n.name}}</div>
-          <div>{{n.description}}</div>
+        <div class="task-info">
+          <div class="task-name">{{n.name}}</div>
+          <div class="task-description">{{n.description}}</div>
         </div>
         <div>
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/033/265/331/original/incorrect-red-mark-icon-yes-or-no-approved-declined-right-wrong-png.png"
-            alt=""
-            style="
-              width: 40px;
-              height: 40px;
-              margin-left: 10px;
-              margin-top: 5px;
-            "
+          <i
+            class="fa fa-clock ci"
             *ngIf="n.status=='Pending'"
-          />
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/024/758/787/original/tick-tick-check-mark-tick-sign-icon-transparent-background-free-png.png"
-            alt=""
-            class="cardimg"
+            style="color: rgb(248, 71, 71)"
+          ></i>
+          <i
+            class="fa fa-check ci"
             *ngIf="n.status=='Completed'"
-          />
+            style="color: rgb(10, 243, 10)"
+          ></i>
+          <i
+            class="fa fa-hourglass-start ci"
+            *ngIf="n.status=='Started'"
+            style="color: rgb(10, 119, 243)"
+          ></i>
 
-          <img
-            src="https://www.freeiconspng.com/uploads/blue-delete-button-png-29.png"
-            alt=""
+          <i
+            class="fa fa-trash"
+            style="color: rgb(248, 71, 71)"
             (click)="handleDelete(n.id)"
-            style="height: 40px; width: 50px"
-          />
+          ></i>
         </div>
       </div>
     </div>
   </div>
   <div class="mid">
-    <div class="welcome-user">Hello, <span>{{name}}</span></div>
+    <div class="welcome-user">
+      Hello, <span>{{relog.userdetails.username()}}</span>
+    </div>
     <div style="display: flex">
       <div class="card1">
         <div style="display: flex; justify-content: center">
@@ -108,7 +111,8 @@
   <div class="right">
     <div class="project-header">
       <h2>
-        Hello, <span class="project-name">{{relog.currProject.name()}}</span>
+        Welcome to
+        <span class="project-name">{{relog.currProject.name()}}</span>
       </h2>
       <p class="project-subtitle">Manage your tasks efficiently</p>
     </div>
@@ -139,7 +143,7 @@
             'status-completed': task.status==='Completed'
           }"
           >
-            {{ task.status }}
+            {{ task.status | uppercase }}
           </div>
         </div>
         <div *ngIf="filteredTasks.length === 0" class="no-tasks">
