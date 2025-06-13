@@ -25,6 +25,8 @@ export class Dashboard {
   selectedUserId: string = '';
   selectedTaskId: string = '';
 
+  members = signal<any[]>([]);
+
   assignTask(userId: string, taskId: string) {
     this.assignTaskToUser(userId, {
       taskId: taskId,
@@ -38,7 +40,7 @@ export class Dashboard {
     userId: string,
     body: { taskId: string; projectId: string }
   ) {
-    return this.http.put(`/api/assignTask/${userId}`, body);
+    return this.http.put(`http://localhost:8080/assignTask/${userId}`, body);
   }
 
   get filteredTasks() {
@@ -69,9 +71,27 @@ export class Dashboard {
           name: item['name'],
           description: item['description'],
           status: item['status'],
+          memberAssigned: item['memberAssigned'],
+          projectId: item['projectId'],
           color: Math.floor(Math.random() * 4) + 1,
         }));
         this.projects.projects.set(transformed);
+      });
+    this.http
+      .post<string[]>(
+        'http://localhost:8080/getUsernames',
+        this.relog.currProject.members()
+      )
+      .subscribe((usernames) => {
+        console.log(usernames);
+
+        const transformed = usernames.map((name, index) => ({
+          id: this.relog.currProject.members()[index],
+          username: name,
+          color: Math.floor(Math.random() * 4) + 1,
+        }));
+
+        this.members.set(transformed);
       });
   }
 

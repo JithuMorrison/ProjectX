@@ -28,6 +28,9 @@
         <div class="task-info">
           <div class="task-name">{{n.name}}</div>
           <div class="task-description">{{n.description}}</div>
+          <div class="task-description" style="color: rgb(51, 235, 116)">
+            {{n.memberAssigned}}
+          </div>
         </div>
         <div>
           <i
@@ -162,11 +165,8 @@
             [(ngModel)]="selectedUserId"
             class="form-control"
           >
-            <option
-              *ngFor="let member of relog.currProject.members()"
-              [value]="member"
-            >
-              {{ member }}
+            <option *ngFor="let member of members()" [value]="member.id">
+              {{ member.username }}
             </option>
           </select>
         </div>
