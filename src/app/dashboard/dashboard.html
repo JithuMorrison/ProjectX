@@ -39,6 +39,11 @@
             style="color: rgb(10, 243, 10)"
           ></i>
           <i
+            class="fa fa-fire ci"
+            *ngIf="n.status=='Working'"
+            style="color: rgb(10, 243, 10)"
+          ></i>
+          <i
             class="fa fa-hourglass-start ci"
             *ngIf="n.status=='Started'"
             style="color: rgb(10, 119, 243)"
