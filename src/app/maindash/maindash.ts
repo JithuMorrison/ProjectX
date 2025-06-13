@@ -94,6 +94,7 @@ export class Maindash {
     this.relog.currProject.name.set(project.name);
     this.relog.currProject.description.set(project.description);
     this.relog.currProject.tasks.set(project.tasks);
+    this.relog.currProject.members.set(project.members);
     this.router.navigate(['/projects'], {
       queryParams: { name: this.relog.userdetails.username() },
     });
@@ -116,6 +117,22 @@ export class Maindash {
       this.relog.currProject.tasks.set([]);
       this.relog.currProject.members.set([]);
     }
+  }
+
+  updateStatus(status: string) {
+    const userId = this.relog.userdetails.id();
+    if (!userId) return;
+
+    const payload = { status };
+
+    this.http
+      .put(`http://localhost:8080/updateStatus/${userId}`, payload, {
+        responseType: 'text',
+      })
+      .subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.error('Error updating status:', err),
+      });
   }
 
   editProject() {
@@ -164,6 +181,7 @@ export class Maindash {
 
   logout() {
     this.router.navigate(['/']);
+    this.updateStatus('Offline');
   }
 
   get filteredProj() {

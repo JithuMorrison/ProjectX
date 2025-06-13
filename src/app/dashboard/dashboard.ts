@@ -22,6 +22,25 @@ export class Dashboard {
   searchTerm: string = '';
   statusdisp = signal(false);
 
+  selectedUserId: string = '';
+  selectedTaskId: string = '';
+
+  assignTask(userId: string, taskId: string) {
+    this.assignTaskToUser(userId, {
+      taskId: taskId,
+      projectId: this.relog.currProject.id(),
+    }).subscribe((response) => {
+      alert('Task assigned successfully');
+    });
+  }
+
+  assignTaskToUser(
+    userId: string,
+    body: { taskId: string; projectId: string }
+  ) {
+    return this.http.put(`/api/assignTask/${userId}`, body);
+  }
+
   get filteredTasks() {
     if (!this.searchTerm) return this.projects.projects();
     const term = this.searchTerm.toLowerCase();

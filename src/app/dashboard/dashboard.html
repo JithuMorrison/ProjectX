@@ -95,7 +95,7 @@
             src="https://icons.veryicon.com/png/o/miscellaneous/wasteapp/refresh-348.png"
             style="
               position: absolute;
-              left: 52.5%;
+              left: 41.25%;
               top: 14%;
               width: 40px;
               height: 40px;
@@ -128,6 +128,54 @@
         } @else{
         <button type="submit" (click)="handleUpdate()">Submit</button>
         }
+      </div>
+      <div class="card1" style="margin-left: -30px">
+        <div style="display: flex; justify-content: center">
+          <div
+            class="heading"
+            style="
+              text-align: center;
+              font-size: x-large;
+              font-weight: 700;
+              margin-bottom: 15px;
+            "
+          >
+            Assign Task
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Selected Task:</label>
+          <select
+            id="selectedTask"
+            [(ngModel)]="selectedTaskId"
+            class="form-control"
+          >
+            <option *ngFor="let task of projects.projects()" [value]="task.id">
+              {{ task.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">Selected Member:</label>
+          <select
+            id="selectedUser"
+            [(ngModel)]="selectedUserId"
+            class="form-control"
+          >
+            <option
+              *ngFor="let member of relog.currProject.members()"
+              [value]="member"
+            >
+              {{ member }}
+            </option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          (click)="assignTask(selectedUserId, selectedTaskId)"
+        >
+          Add Task
+        </button>
       </div>
     </div>
   </div>
