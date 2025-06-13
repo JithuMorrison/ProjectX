@@ -95,11 +95,12 @@ export class Register {
                   username: this.uname,
                   fname: this.fname,
                   lname: this.lname,
-                  role: 'Offline',
+                  role: [],
                   address: this.relog.userdetails.address(),
                   phoneno: this.relog.userdetails.phoneno(),
                   password: this.password,
                   projects: [],
+                  status: 'Online',
                 })
                 .subscribe(
                   (response) => {

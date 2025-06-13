@@ -53,6 +53,22 @@ export class Login {
     this.validatePassword(value);
   }
 
+  updateStatus(status: string) {
+    const userId = this.relog.userdetails.id();
+    if (!userId) return;
+
+    const payload = { status };
+
+    this.http
+      .put(`http://localhost:8080/updateStatus/${userId}`, payload, {
+        responseType: 'text',
+      })
+      .subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.error('Error updating status:', err),
+      });
+  }
+
   login(form: any) {
     if (form.valid) {
       if (
@@ -85,6 +101,8 @@ export class Login {
                 this.relog.userdetails.firstname.set(response['user']['fname']);
                 this.relog.userdetails.lastname.set(response['user']['lname']);
                 this.relog.userdetails.address.set(response['user']['address']);
+                this.relog.userdetails.status.set('Online');
+                this.updateStatus('Online');
                 this.gotodash();
               } else {
                 alert('Login failed: Invalid credentials');

@@ -17,6 +17,7 @@ export class Relog {
     phoneno: signal(''),
     address: signal(''),
     role: signal(''),
+    status: signal(''),
     projects: signal<string[]>([]),
   };
 
@@ -57,6 +58,7 @@ export class Relog {
           address: this.userdetails.address(),
           role: this.userdetails.role(),
           projects: this.userdetails.projects(),
+          status: this.userdetails.status(),
           currProject: {
             id: this.currProject.id(),
             name: this.currProject.name(),
@@ -86,6 +88,7 @@ export class Relog {
         if (data.address) this.userdetails.address.set(data.address);
         if (data.phoneno) this.userdetails.phoneno.set(data.phoneno);
         if (data.projects) this.userdetails.projects.set(data.projects);
+        if (data.status) this.userdetails.status.set(data.status);
 
         if (data.currProject) {
           this.currProject.id.set(data.currProject.id || '');
