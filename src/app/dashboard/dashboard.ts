@@ -43,6 +43,12 @@ export class Dashboard {
     return this.http.put(`http://localhost:8080/assignTask/${userId}`, body);
   }
 
+  getUsernameById(id: string): string {
+    const memberList = this.members();
+    const user = memberList.find((m) => m.id === id);
+    return user ? user.username : 'Unknown';
+  }
+
   get filteredTasks() {
     if (!this.searchTerm) return this.projects.projects();
     const term = this.searchTerm.toLowerCase();
