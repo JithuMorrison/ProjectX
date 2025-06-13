@@ -116,6 +116,23 @@ body{
     text-align: center;
 }
 
+.selectui {
+  position: absolute;
+  top: 28px;
+  left: 325px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.selectui:focus {
+  border-color: #00ffb7;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
 .welcome-user {
     font-size: 45px;
     font-weight: 600;

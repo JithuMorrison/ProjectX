@@ -9,7 +9,9 @@
       />
       <div style="display: flex; flex-direction: column; margin-top: 25px">
         <span class="username">{{relog.userdetails.email()}}</span>
-        <span class="emotion">{{relog.currProject.status()}}</span><br />
+        <span class="emotion" (click)="toggleStatus()"
+          >{{relog.currProject.status()}}</span
+        ><br />
       </div>
     </div>
     <div class="box">
@@ -60,6 +62,19 @@
   </div>
   <div class="mid">
     <div class="welcome-user">
+      <select
+        class="selectui"
+        id="statu"
+        [(ngModel)]="relog.currProject.status"
+        (ngModelChange)="editProject()"
+        *ngIf="statusdisp()"
+      >
+        <option value="Started">Started</option>
+        <option value="Pending">Pending</option>
+        <option value="Building">Building</option>
+        <option value="Maintenance">Maintenance</option>
+        <option value="Deployed">Deployed</option>
+      </select>
       Hello, <span>{{relog.userdetails.username()}}</span>
     </div>
     <div style="display: flex">

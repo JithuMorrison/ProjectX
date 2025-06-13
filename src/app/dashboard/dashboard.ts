@@ -20,6 +20,7 @@ export class Dashboard {
   relog = inject(Relog);
 
   searchTerm: string = '';
+  statusdisp = signal(false);
 
   get filteredTasks() {
     if (!this.searchTerm) return this.projects.projects();
@@ -162,5 +163,32 @@ export class Dashboard {
     this.router.navigate(['/dash'], {
       queryParams: { name: this.relog.userdetails.username() },
     });
+  }
+
+  toggleStatus() {
+    this.statusdisp.set(!this.statusdisp());
+  }
+
+  editProject() {
+    this.http
+      .put('http://localhost:8080/updateProject', {
+        name: this.relog.currProject.name(),
+        description: this.relog.currProject.description(),
+        id: this.relog.currProject.id(),
+        status: this.relog.currProject.status(),
+        tasks: this.relog.currProject.tasks(),
+        members: this.relog.currProject.members(),
+      })
+      .subscribe(
+        (response) => {
+          console.log('Project updated successfully:', response);
+          this.statusdisp.set(false);
+          alert('Project updated successfully!');
+        },
+        (error) => {
+          console.error('Error updating project:', error);
+          alert('Failed to update project. Please try again.');
+        }
+      );
   }
 }
