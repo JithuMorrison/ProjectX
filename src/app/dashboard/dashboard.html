@@ -96,10 +96,12 @@
         <br />
         <div class="form-group">
           <label for="">Status:</label>
-          <input
-            type="text"
-            [(ngModel)]="relog.currtask().status"
-          /><br /><br />
+          <select id="status" [(ngModel)]="relog.currtask().status">
+            <option value="Started">Started</option>
+            <option value="Pending">Pending</option>
+            <option value="Working">Working</option>
+            <option value="Completed">Completed</option>
+          </select>
         </div>
         @if(edit()){
         <button type="submit" (click)="handleUpdateTask()">Edit</button>
