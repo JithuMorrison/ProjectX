@@ -95,9 +95,29 @@
             </div>
           </div>
           <div class="designcard" style="color: antiquewhite">
-            <button (click)="decodeDigiPin()" [disabled]="!digipin">
+            <input
+              type="text"
+              placeholder="Enter DigiPIN"
+              style="width: 80%"
+              [(ngModel)]="newdigi"
+            />
+            <button (click)="decodeDigiPin()" [disabled]="!newdigi">
               Decode DigiPIN
             </button>
+            <div
+              *ngIf="decodedLocation"
+              style="
+                font-size: small;
+                display: flex;
+                font-weight: 700;
+                margin-top: 2px;
+                color: rgb(218, 243, 241);
+              "
+            >
+              <div>Lat: {{decodedLocation.latitude}},</div>
+              &nbsp;
+              <div>Long: {{decodedLocation.longitude}}</div>
+            </div>
           </div>
         </div>
         <div style="padding: 0px 20px; height: 440px; overflow-y: auto">

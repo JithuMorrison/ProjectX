@@ -17,7 +17,7 @@ export class Maindash {
 
   currentLocation?: { lat: number; lon: number };
   digipin = '';
-  newdigi = 'M9F-L3F-25KM';
+  newdigi = '';
   decodedLocation?: { latitude: number; longitude: number };
 
   editMode = signal(false);
