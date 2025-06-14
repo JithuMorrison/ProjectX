@@ -66,18 +66,38 @@
           <div class="designcard" style="background-color: rgb(174, 220, 98)">
             Projects: <span>{{relog.projects()?.length}}</span>
           </div>
-          <div
-            class="designcard"
-            style="background-color: rgb(240, 95, 95); color: aqua"
-          >
-            Projects:
-            <span style="color: aqua">{{relog.projects()?.length}}</span>
+          <div class="descard">
+            <div
+              style="
+                font-weight: bold;
+                font-size: 18px;
+                text-align: center;
+                margin-bottom: 20px;
+              "
+            >
+              Location Details
+            </div>
+
+            <div *ngIf="digipin">
+              <span style="font-weight: 600">DigiPIN:</span>
+              {{ digipin }}
+            </div>
+
+            <div *ngIf="currentLocation">
+              <div>
+                <span style="font-weight: 600">Latitude:</span>
+                {{ currentLocation.lat }}
+              </div>
+              <div>
+                <span style="font-weight: 600">Longitude:</span>
+                {{ currentLocation.lon }}
+              </div>
+            </div>
           </div>
           <div class="designcard" style="color: antiquewhite">
-            Projects:
-            <span style="color: antiquewhite"
-              >{{relog.projects()?.length}}</span
-            >
+            <button (click)="decodeDigiPin()" [disabled]="!digipin">
+              Decode DigiPIN
+            </button>
           </div>
         </div>
         <div style="padding: 0px 20px; height: 440px; overflow-y: auto">
@@ -93,6 +113,7 @@
                 flex-direction: column;
                 margin: 0px 0px 0px 5px;
               "
+              (click)="onProject(project)"
             >
               <div>{{project.name}}</div>
               <div>{{project.description}}</div>

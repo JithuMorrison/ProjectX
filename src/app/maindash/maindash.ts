@@ -4,6 +4,7 @@ import { Relog } from '../relog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Digipin } from '../digipin';
 
 @Component({
   selector: 'app-maindash',
@@ -12,7 +13,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './maindash.css',
 })
 export class Maindash {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private geo: Digipin) {}
+
+  currentLocation?: { lat: number; lon: number };
+  digipin = '';
+  newdigi = 'M9F-L3F-25KM';
+  decodedLocation?: { latitude: number; longitude: number };
 
   editMode = signal(false);
   searchTerm: string = '';
@@ -26,6 +32,7 @@ export class Maindash {
           this.relog.projects.set([...this.relog.projects(), ...data]);
         });
     }
+    this.getLocationAndEncode();
   }
 
   relog = inject(Relog);
@@ -231,5 +238,24 @@ export class Maindash {
         },
         error: (err) => console.error('Error joining project:', err),
       });
+  }
+
+  getLocationAndEncode() {
+    this.geo.getCurrentLocation().then((loc) => {
+      this.currentLocation = loc;
+      console.log(this.currentLocation);
+      this.http
+        .post<{ digipin: string }>('http://localhost:8080/encode', loc)
+        .subscribe((res) => (this.digipin = res.digipin));
+    });
+  }
+
+  decodeDigiPin() {
+    this.http
+      .post<{ latitude: number; longitude: number }>(
+        'http://localhost:8080/decode',
+        { digipin: this.newdigi }
+      )
+      .subscribe((res) => (this.decodedLocation = res));
   }
 }
