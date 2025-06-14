@@ -31,7 +31,13 @@ export class Maindash {
   relog = inject(Relog);
   http = inject(HttpClient);
 
-  addclick = signal(false);
+  addclick = signal(true);
+  joinproj = signal(false);
+  joinid = signal('');
+
+  togglejoin() {
+    this.joinproj.set(!this.joinproj());
+  }
 
   openProject(val: string) {
     this.router.navigate(['/' + val], {
@@ -194,5 +200,35 @@ export class Maindash {
           task.name.toLowerCase().includes(term) ||
           task.status.toLowerCase().includes(term)
       );
+  }
+
+  joinProject() {
+    const userId = this.relog.userdetails.id();
+
+    const projectId = this.joinid();
+
+    if (!userId || !projectId) return;
+
+    const payload = {
+      userid: userId,
+      projectid: projectId,
+    };
+
+    this.http
+      .post('http://localhost:8080/joinProject', payload, {
+        responseType: 'text',
+      })
+      .subscribe({
+        next: (res) => {
+          alert('Join project success:');
+          const ids = this.relog.userdetails.projects().join(',');
+          this.http
+            .get<any[]>(`http://localhost:8080/getProject?id=${ids}`)
+            .subscribe((data) => {
+              this.relog.projects.set([...this.relog.projects(), ...data]);
+            });
+        },
+        error: (err) => console.error('Error joining project:', err),
+      });
   }
 }
