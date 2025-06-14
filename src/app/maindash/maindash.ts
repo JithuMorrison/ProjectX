@@ -99,6 +99,7 @@ export class Maindash {
     this.relog.currProject.id.set(project.id);
     this.relog.currProject.name.set(project.name);
     this.relog.currProject.description.set(project.description);
+    this.relog.currProject.status.set(project.status);
     this.relog.currProject.tasks.set(project.tasks);
     this.relog.currProject.members.set(project.members);
     this.router.navigate(['/projects'], {
