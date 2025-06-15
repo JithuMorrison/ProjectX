@@ -7,7 +7,7 @@
     <div class="projects">
       General
       <div class="project" (click)="openProject('projects')">
-        <i class="fa fa-file" style="padding: 0px 10px"></i>Projects
+        <i class="fa fa-file" style="padding: 0px 10px"></i>Latest Project
       </div>
       <div class="project">
         <i class="fa fa-user-circle" style="padding: 0px 10px"></i>Profile
@@ -36,6 +36,7 @@
         [(ngModel)]="searchTerm"
         placeholder="Search for Projects, tasks, etc..."
       />
+      <div class="emotion">{{relog.userdetails.status()}}</div>
       <div style="display: flex; gap: 25px; align-items: center">
         @if (addclick()) {
         <i
@@ -178,7 +179,7 @@
         <div class="project-list">
           <div
             class="project-item"
-            *ngFor="let project of relog.projects().slice(0,3)"
+            *ngFor="let project of latestproj().slice(0,3)"
           >
             <div style="display: flex; flex-direction: column">
               <div class="project-name" (click)="onProject(project)">

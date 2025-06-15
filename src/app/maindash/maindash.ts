@@ -23,6 +23,8 @@ export class Maindash {
   editMode = signal(false);
   searchTerm: string = '';
 
+  latestproj = signal<any[]>([]);
+
   ngOnInit() {
     if (this.relog.projects().length == 0) {
       const ids = this.relog.userdetails.projects().join(',');
@@ -33,6 +35,7 @@ export class Maindash {
         });
     }
     this.getLocationAndEncode();
+    this.latestproj = this.relog.projects;
   }
 
   relog = inject(Relog);
@@ -109,6 +112,16 @@ export class Maindash {
     this.relog.currProject.status.set(project.status);
     this.relog.currProject.tasks.set(project.tasks);
     this.relog.currProject.members.set(project.members);
+
+    const latestProjects = this.latestproj(); // get current value
+    const index = latestProjects.findIndex((p: any) => p.id === project.id);
+
+    if (index !== -1) {
+      const [matchedProject] = latestProjects.splice(index, 1);
+      latestProjects.unshift(matchedProject);
+      this.latestproj.set([...latestProjects]);
+    }
+
     this.router.navigate(['/projects'], {
       queryParams: { name: this.relog.userdetails.username() },
     });
