@@ -84,16 +84,17 @@ export class Dashboard {
         this.projects.projects.set(transformed);
       });
     this.http
-      .post<string[]>(
+      .post<{ username: string; status: string }[]>(
         'http://localhost:8080/getUsernames',
         this.relog.currProject.members()
       )
-      .subscribe((usernames) => {
-        console.log(usernames);
+      .subscribe((users) => {
+        console.log(users);
 
-        const transformed = usernames.map((name, index) => ({
+        const transformed = users.map((user, index) => ({
           id: this.relog.currProject.members()[index],
-          username: name,
+          username: user.username,
+          status: user.status,
           color: Math.floor(Math.random() * 4) + 1,
         }));
 
