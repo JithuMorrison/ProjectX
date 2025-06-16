@@ -26,6 +26,15 @@ export class Dashboard {
   selectedTaskId: string = '';
 
   members = signal<any[]>([]);
+  onlineMembers = signal<any[]>([]);
+  showDialog = false;
+
+  getTooltip(): string {
+    const extraUsers = this.onlineMembers()
+      .slice(2)
+      .map((u) => u.username);
+    return extraUsers.join(', ');
+  }
 
   assignTask(userId: string, taskId: string) {
     this.assignTaskToUser(userId, {
@@ -99,6 +108,9 @@ export class Dashboard {
         }));
 
         this.members.set(transformed);
+        this.onlineMembers.set(
+          transformed.filter((member) => member.status === 'Online')
+        );
       });
   }
 
