@@ -50,7 +50,11 @@
             'border-left' : '5px solid ' + (n.color === 1 ? 'var(--base)' : n.color === 2 ? 'var(--green)' : n.color === 3 ? 'var(--add)'  : 'var(--text)')
         }"
     >
-      <div class="cardbox" (click)="handleClick(n)">
+      <div
+        class="cardbox"
+        (click)="(n.memberAssigned === relog.userdetails.id() || relog.currProject.members()[0] === relog.userdetails.id()) && handleClick(n)"
+        [class.disabled]="!(n.memberAssigned === relog.userdetails.id() || relog.currProject.members()[0] === relog.userdetails.id())"
+      >
         <div class="task-info">
           <div class="task-name">{{n.name}}</div>
           <div class="task-description">{{n.description}}</div>
