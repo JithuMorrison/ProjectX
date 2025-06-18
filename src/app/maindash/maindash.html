@@ -68,6 +68,7 @@
             Projects: <span>{{relog.projects()?.length}}</span>
           </div>
           <div class="descard">
+            @defer {
             <div
               style="
                 font-weight: bold;
@@ -78,7 +79,6 @@
             >
               Location Details
             </div>
-
             <div *ngIf="digipin">
               <span style="font-weight: 600">DigiPIN:</span>
               {{ digipin }}
@@ -94,6 +94,11 @@
                 {{ currentLocation.lon }}
               </div>
             </div>
+            } @placeholder {
+            <div>Loading...</div>
+            } @error {
+            <div>Error loading data!</div>
+            }
           </div>
           <div class="designcard" style="color: antiquewhite">
             <input

@@ -1,14 +1,23 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
-import { Maindash } from './maindash/maindash';
-import { Register } from './register/register';
-import { Profile } from './profile/profile';
 
 export const routes: Routes = [
   { path: '', component: Login },
-  { path: 'projects', component: Dashboard },
-  { path: 'dash', component: Maindash },
-  { path: 'register', component: Register },
-  { path: 'profile', component: Profile },
+  {
+    path: 'projects',
+    loadComponent: () =>
+      import('./dashboard/dashboard').then((m) => m.Dashboard),
+  },
+  {
+    path: 'dash',
+    loadComponent: () => import('./maindash/maindash').then((m) => m.Maindash),
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./register/register').then((m) => m.Register),
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile').then((m) => m.Profile),
+  },
 ];
