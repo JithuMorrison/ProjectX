@@ -138,7 +138,7 @@
             >
               <div>{{project.name}}</div>
               <div>{{project.description}}</div>
-              <div>{{project.status}}</div>
+              <div [innerHTML]="project.status | status"></div>
             </div>
             <div style="display: flex; flex-direction: column">
               <div>Members: {{project.members?.length || 0}}</div>

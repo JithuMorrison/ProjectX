@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Digipin } from '../digipin';
+import { StatusPipe } from '../status-pipe';
 
 @Component({
   selector: 'app-maindash',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, StatusPipe],
   templateUrl: './maindash.html',
   styleUrl: './maindash.css',
 })
