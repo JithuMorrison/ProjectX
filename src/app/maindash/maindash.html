@@ -68,7 +68,7 @@
             Projects: <span>{{relog.projects()?.length}}</span>
           </div>
           <div class="descard">
-            @defer {
+            @defer (on hover) {
             <div
               style="
                 font-weight: bold;
@@ -95,7 +95,19 @@
               </div>
             </div>
             } @placeholder {
-            <div>Loading...</div>
+            <div>
+              <img
+                src="https://www.pngall.com/wp-content/uploads/14/Loading-Background-PNG.png"
+                alt="loading"
+                style="
+                  width: 100px;
+                  margin-left: 35px;
+                  margin-bottom: -40px;
+                  margin-top: -20px;
+                "
+              />
+              <div>Hover to know ur Location...</div>
+            </div>
             } @error {
             <div>Error loading data!</div>
             }
