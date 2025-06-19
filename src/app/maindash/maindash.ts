@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Digipin } from '../digipin';
 import { StatusPipe } from '../status-pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-maindash',
-  imports: [CommonModule, FormsModule, StatusPipe],
+  imports: [CommonModule, FormsModule, StatusPipe, ScrollingModule],
   templateUrl: './maindash.html',
   styleUrl: './maindash.css',
 })

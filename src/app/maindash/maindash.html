@@ -138,30 +138,35 @@
             </div>
           </div>
         </div>
-        <div style="padding: 0px 20px; height: 440px; overflow-y: auto">
-          <div>Projects</div>
-          <div
-            class="project-item"
-            *ngFor="let project of filteredProj"
-            style="margin-top: 10px; justify-content: space-between"
+        <div style="padding: 0px 20px; height: 440px">
+          <div style="margin-bottom: 5px">Projects</div>
+          <cdk-virtual-scroll-viewport
+            itemSize="60"
+            style="width: 100%; height: 93%; scrollbar-width: none"
           >
             <div
-              style="
-                display: flex;
-                flex-direction: column;
-                margin: 0px 0px 0px 5px;
-              "
-              (click)="onProject(project)"
+              class="project-item"
+              *ngFor="let project of filteredProj"
+              style="margin-top: 10px; justify-content: space-between"
             >
-              <div>{{project.name}}</div>
-              <div>{{project.description}}</div>
-              <div [innerHTML]="project.status | status"></div>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  margin: 0px 0px 0px 5px;
+                "
+                (click)="onProject(project)"
+              >
+                <div>{{project.name}}</div>
+                <div>{{project.description}}</div>
+                <div [innerHTML]="project.status | status"></div>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <div>Members: {{project.members?.length || 0}}</div>
+                <div>Tasks: {{project.tasks?.length || 0}}</div>
+              </div>
             </div>
-            <div style="display: flex; flex-direction: column">
-              <div>Members: {{project.members?.length || 0}}</div>
-              <div>Tasks: {{project.tasks?.length || 0}}</div>
-            </div>
-          </div>
+          </cdk-virtual-scroll-viewport>
         </div>
       </div>
       <div class="right">
