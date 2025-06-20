@@ -46,6 +46,7 @@
     <div
       class="card"
       *ngFor="let n of projects.projects()"
+      cdkDrag
       [ngStyle]="{
             'border-left' : '5px solid ' + (n.color === 1 ? 'var(--base)' : n.color === 2 ? 'var(--green)' : n.color === 3 ? 'var(--add)'  : 'var(--text)')
         }"
