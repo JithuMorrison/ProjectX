@@ -20,4 +20,9 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./profile/profile').then((m) => m.Profile),
   },
+  {
+    path: 'forgot',
+    loadComponent: () =>
+      import('./forgotpass/forgotpass').then((m) => m.Forgotpass),
+  },
 ];
